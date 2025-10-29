@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Meetings</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        h1 { color: #333; margin-bottom: 30px; text-align: center; }
+        .btn { display: inline-block; background: #667eea; color: white; padding: 12px 25px; text-decoration: none; border-radius: 50px; font-weight: 600; transition: all 0.3s; margin: 5px; }
+        .btn:hover { background: #764ba2; transform: translateY(-2px); }
+        .btn-success { background: #28a745; }
+        .btn-success:hover { background: #218838; }
+        .meeting-card { background: #f8f9fa; padding: 20px; margin: 15px 0; border-radius: 15px; border-left: 5px solid #667eea; }
+        .meeting-title { font-size: 1.3em; font-weight: 600; color: #333; margin-bottom: 10px; }
+        .meeting-info { color: #666; margin: 5px 0; }
+        .status { padding: 5px 15px; border-radius: 20px; font-size: 0.9em; font-weight: 600; }
+        .status-scheduled { background: #d4edda; color: #155724; }
+        .status-ongoing { background: #fff3cd; color: #856404; }
+        .status-ended { background: #cce5ff; color: #004085; }
+        .no-meetings { text-align: center; color: #666; font-size: 1.2em; margin: 50px 0; }
+        .success-msg { background: #d4edda; color: #155724; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 All Meetings</h1>
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="/meetings/dashboard" class="btn">← Back to Dashboard</a>
+            <a href="/meetings/new" class="btn btn-success">➕ New Meeting</a>
+        </div>
+        
+        <div th:if="${param.success}" class="success-msg">
+            ✅ Meeting saved successfully!
+        </div>
+        
+        <div th:if="${meetings.empty}" class="no-meetings">
+            📭 No meetings scheduled yet.<br>
+            <a href="/meetings/new" class="btn btn-success" style="margin-top: 20px;">Schedule your first meeting</a>
+        </div>
+        
+        <div th:each="meeting : ${meetings}" class="meeting-card">
+            <div class="meeting-title">
+                <span th:text="${meeting.title}">Meeting Title</span>
+                <span th:if="${meeting.createdBy.id == currentUserId}" style="font-size: 0.8em; color: #667eea; margin-left: 10px;">(Created by you)</span>
+                <span th:if="${meeting.createdBy.id != currentUserId}" style="font-size: 0.8em; color: #28a745; margin-left: 10px;" th:text="'(Invited by ' + ${meeting.createdBy.fullName} + ')'">(Invited)</span>
+            </div>
+            <div class="meeting-info" th:text="${meeting.description}">Description</div>
+            <div class="meeting-info">
+                📅 <span th:text="${#temporals.format(meeting.startTime, 'MMM dd, yyyy HH:mm')}">Start Time</span>
+                - <span th:text="${#temporals.format(meeting.endTime, 'HH:mm')}">End Time</span>
+            </div>
+            <div class="meeting-info" th:if="${meeting.location}">
+                📍 <span th:text="${meeting.location}">Location</span>
+            </div>
+            <div class="meeting-info">
+                👤 <strong>Organizer:</strong> <span th:text="${meeting.createdBy.fullName}">Organizer</span>
+            </div>
+            <div class="meeting-info" th:if="${meeting.participants}">
+                👥 <strong>Participants:</strong> <span th:text="${meeting.participants}">Participants</span>
+            </div>
+            <div style="margin-top: 10px;">
+                <span class="status" 
+                      th:classappend="${meeting.status == 'Scheduled' ? 'status-scheduled' : (meeting.status == 'Ongoing' ? 'status-ongoing' : 'status-ended')}"
+                      th:text="${meeting.status}">Status</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

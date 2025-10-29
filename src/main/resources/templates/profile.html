@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .profile-container { background: white; border-radius: 20px; padding: 40px; max-width: 800px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .header h1 { color: #667eea; font-size: 2.5em; }
+        .btn { padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s; border: none; cursor: pointer; }
+        .btn-primary { background: #667eea; color: white; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .profile-info { background: #f8f9fa; padding: 30px; border-radius: 15px; margin-bottom: 30px; }
+        .info-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #e0e0e0; }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { font-weight: 600; color: #333; }
+        .info-value { color: #666; }
+        .profile-avatar { text-align: center; margin-bottom: 30px; }
+        .avatar-icon { font-size: 5em; color: #667eea; }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="header">
+            <h1>My Profile</h1>
+            <a href="/meetings/dashboard" class="btn btn-primary">← Back to Dashboard</a>
+        </div>
+        
+        <div class="profile-avatar">
+            <div class="avatar-icon">👤</div>
+        </div>
+        
+        <div class="profile-info">
+            <div class="info-row">
+                <span class="info-label">Full Name:</span>
+                <span class="info-value" th:text="${user.fullName}">User Name</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Email:</span>
+                <span class="info-value" th:text="${user.email}">user@example.com</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Username:</span>
+                <span class="info-value" th:text="${user.username}">username</span>
+            </div>
+            <div class="info-row" th:if="${user.company}">
+                <span class="info-label">Company:</span>
+                <span class="info-value" th:text="${user.company}">Company Name</span>
+            </div>
+            <div class="info-row" th:if="${user.jobTitle}">
+                <span class="info-label">Job Title:</span>
+                <span class="info-value" th:text="${user.jobTitle}">Job Title</span>
+            </div>
+            <div class="info-row" th:if="${user.department}">
+                <span class="info-label">Department:</span>
+                <span class="info-value" th:text="${user.department}">Department</span>
+            </div>
+            <div class="info-row" th:if="${user.phoneNumber}">
+                <span class="info-label">Phone:</span>
+                <span class="info-value" th:text="${user.phoneNumber}">Phone Number</span>
+            </div>
+            <div class="info-row" th:if="${user.address}">
+                <span class="info-label">Address:</span>
+                <span class="info-value" th:text="${user.address}">Address</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Account Status:</span>
+                <span class="info-value" th:text="${user.enabled ? 'Active' : 'Inactive'}">Active</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Member Since:</span>
+                <span class="info-value" th:text="${#temporals.format(user.joinDate, 'MMM dd, yyyy')}">Join Date</span>
+            </div>
+            <div class="info-row" th:if="${user.lastLogin}">
+                <span class="info-label">Last Login:</span>
+                <span class="info-value" th:text="${#temporals.format(user.lastLogin, 'MMM dd, yyyy HH:mm')}">Last Login</span>
+            </div>
+            <div class="info-row" th:if="${user.bio}">
+                <span class="info-label">Bio:</span>
+                <span class="info-value" th:text="${user.bio}">Bio</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

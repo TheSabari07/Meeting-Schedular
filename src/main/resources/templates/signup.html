@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Meeting Scheduler</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; }
+        .left-panel { flex: 1; padding: 60px; color: white; display: flex; flex-direction: column; justify-content: center; }
+        .right-panel { flex: 1; background: white; padding: 40px; display: flex; flex-direction: column; justify-content: center; border-radius: 30px 0 0 30px; }
+        .form-container h2 { color: #333; margin-bottom: 30px; font-size: 2.2em; text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: #666; font-weight: 600; }
+        .form-group input { width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px; transition: border-color 0.3s; }
+        .form-group input:focus { outline: none; border-color: #667eea; }
+        .btn-primary { width: 100%; background: #667eea; color: white; padding: 18px; border: none; border-radius: 50px; font-size: 18px; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-top: 20px; }
+        .btn-primary:hover { background: #764ba2; transform: translateY(-2px); }
+        .auth-footer { text-align: center; margin-top: 30px; color: #666; }
+        .auth-footer a { color: #667eea; text-decoration: none; font-weight: 600; }
+        .error { background: #f8d7da; color: #721c24; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
+        .feature-card { background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; text-align: center; }
+        .feature-icon { font-size: 3em; margin-bottom: 15px; }
+        .feature-title { font-size: 1.3em; font-weight: bold; margin-bottom: 10px; }
+        .feature-desc { font-size: 0.95em; opacity: 0.9; }
+        .stats { display: flex; justify-content: space-around; margin-top: 40px; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 2.5em; font-weight: bold; }
+        .stat-label { font-size: 0.9em; opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <div class="left-panel">
+        <h1 style="font-size: 2.5em; margin-bottom: 20px;">Create Account</h1>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <div class="feature-title">Smart Scheduling</div>
+                <div class="feature-desc">AI-powered scheduling finds the perfect time for all participants</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎥</div>
+                <div class="feature-title">Video Integration</div>
+                <div class="feature-desc">Join meetings directly with Zoom, Teams, and Google Meet</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔔</div>
+                <div class="feature-title">Smart Reminders</div>
+                <div class="feature-desc">Customizable reminders via email, SMS, and push notifications</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">Analytics & Reports</div>
+                <div class="feature-desc">Track meeting efficiency and participant engagement</div>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">1.2K+</div>
+                <div class="stat-label">Meetings Scheduled</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">User Satisfaction</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Active Teams</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="right-panel">
+        <div class="form-container">
+            <h2>Create Account</h2>
+            
+            <div th:if="${error}" class="error" th:text="${error}"></div>
+            
+            <form action="/signup" method="post">
+                <div class="form-group">
+                    <input type="text" name="fullName" placeholder="Full Name *" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email Address *" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="contact" placeholder="Phone Number">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="company" placeholder="Company/Organization">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="jobTitle" placeholder="Job Title">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Username *" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Password *" required>
+                </div>
+                <button type="submit" class="btn-primary">Create Account</button>
+            </form>
+            
+            <div class="auth-footer">
+                Already have an account? <a href="/login">Login</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

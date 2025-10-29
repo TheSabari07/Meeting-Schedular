@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Scheduler</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); text-align: center; max-width: 500px; width: 90%; }
+        h1 { color: #333; margin-bottom: 30px; font-size: 2.5em; }
+        .btn { display: inline-block; padding: 15px 30px; margin: 10px; background: #667eea; color: white; text-decoration: none; border-radius: 50px; transition: all 0.3s; font-weight: 600; }
+        .btn:hover { background: #764ba2; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .btn-success { background: #28a745; }
+        .btn-success:hover { background: #218838; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📅 Meeting Scheduler</h1>
+        <p style="margin-bottom: 30px; color: #666; font-size: 1.1em;">Manage your meetings efficiently</p>
+        
+        <div>
+            <a href="/meetings" class="btn">📋 View All Meetings</a>
+            <a href="/meetings/new" class="btn btn-success">➕ Schedule New Meeting</a>
+        </div>
+    </div>
+</body>
+</html>

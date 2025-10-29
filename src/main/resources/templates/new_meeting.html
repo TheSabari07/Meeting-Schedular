@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule New Meeting</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        h1 { color: #333; margin-bottom: 30px; text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #333; }
+        input, textarea { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; }
+        input:focus, textarea:focus { outline: none; border-color: #667eea; }
+        .btn { background: #667eea; color: white; padding: 15px 30px; border: none; border-radius: 50px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn:hover { background: #764ba2; transform: translateY(-2px); }
+        .btn-back { background: #6c757d; margin-right: 10px; }
+        .btn-back:hover { background: #5a6268; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📅 Schedule New Meeting</h1>
+        
+        <div th:if="${error}" style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center;" th:text="${error}"></div>
+        <div th:if="${param.error}" style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center;" th:text="${param.error}"></div>
+        
+        <form action="/meetings" method="post">
+            <div class="form-group">
+                <label for="title">Meeting Title *</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="3"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="startTime">Start Date & Time *</label>
+                <input type="datetime-local" id="startTime" name="startTime" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="endTime">End Date & Time *</label>
+                <input type="datetime-local" id="endTime" name="endTime" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="Meeting room, Zoom link, etc.">
+            </div>
+            
+            <div class="form-group">
+                <label for="participants">Participants (Email Addresses)</label>
+                <input type="text" id="participants" name="participants" placeholder="user1@example.com, user2@example.com">
+                <small style="color: #666; font-size: 14px;">Enter email addresses separated by commas. Invitations will be sent automatically.</small>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="/meetings/dashboard" class="btn btn-back">← Back to Dashboard</a>
+                <button type="submit" class="btn">💾 Save Meeting</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
